@@ -1,0 +1,3 @@
+﻿  main.cpp
+F:\BACHELOR LUDUS\ALGO\COUR S2\TP\TP_arbre_binaire\TP_arbre_binaire\TP_arbre_binaire\noeud.h(7,2): warning C4091: 'typedef ' : ignoré à gauche de 'noeud' quand aucune variable n'est déclarée
+  TP_arbre_binaire.vcxproj -> F:\BACHELOR LUDUS\ALGO\COUR S2\TP\TP_arbre_binaire\TP_arbre_binaire\x64\Debug\TP_arbre_binaire.exe
