@@ -9,10 +9,8 @@
 
 tree::tree(noeud* n)
 {
-	taille = 1;
+
 	racine = n;
-	coteDroit = 0;
-	coteGauche = 0;
 }
 
 tree::~tree()
@@ -35,14 +33,6 @@ void tree::addTree(noeud* n, noeud* elementActuel)
 			{
 				elementActuel->fGauche = n;
 
-				if (n->value <= racine->value)
-				{
-					coteGauche += 1;
-				}
-				else
-				{
-					coteDroit += 1;
-				}
 
 			}
 			else {
@@ -55,14 +45,7 @@ void tree::addTree(noeud* n, noeud* elementActuel)
 			{
 				elementActuel->fDroit = n;
 
-				if (n->value <= racine->value)
-				{
-					coteGauche += 1;
-				}
-				else
-				{
-					coteDroit += 1;
-				}
+				
 
 			}
 			else {
@@ -126,7 +109,7 @@ void tree::suppression(int x, noeud* elementActuel)
 				else {
 					delete suppr;
 					elementActuel->fGauche = NULL;
-					coteGauche -= 1;
+		
 					return;
 				}
 
@@ -141,14 +124,7 @@ void tree::suppression(int x, noeud* elementActuel)
 
 				elementActuel->fGauche = succ;
 
-				if (suppr->value <= racine->value)
-				{
-					coteGauche -= 1;
-				}
-				else
-				{
-					coteDroit -= 1;
-				}
+				
 				delete suppr;
 			}
 			else {
@@ -171,7 +147,7 @@ void tree::suppression(int x, noeud* elementActuel)
 				else {
 					delete suppr;
 					elementActuel->fDroit = NULL;
-					coteDroit -= 1;
+					
 					return;
 				}
 
@@ -185,14 +161,7 @@ void tree::suppression(int x, noeud* elementActuel)
 				}
 
 				elementActuel->fDroit = succ;
-				if (suppr->value <= racine->value)
-				{
-					coteGauche -= 1;
-				}
-				else
-				{
-					coteDroit -= 1;
-				}
+				
 				delete suppr;
 			}
 			else {
@@ -202,95 +171,52 @@ void tree::suppression(int x, noeud* elementActuel)
 	}
 }
 
-void tree::equilibre()
+int tree::equilibre(noeud* n)
 {
-	int x = coteGauche - coteDroit;
+	
 
-	if (x >= -1 && x <= 1)
+	if (n == NULL || n == racine)
 	{
-		printf(" l'arbre est equilibre : cote gauche %d noeud, cote droit %d noeud \n", coteGauche, coteDroit);
+		return 0;
+		
 	}
-	else {
-		printf(" l'arbre est desequilibre : cote gauche %d noeud, cote droit %d noeud \n", coteGauche, coteDroit);
-	}
+	return 1 + equilibre(n->fGauche) + equilibre(n->fDroit);
+
 }
 
-/*void tree::equilibrage()
+void tree::rotation()
 {
 
-	int x = coteGauche - coteDroit;
-	noeud* actuel;
-	noeud* prede;
-
-	while (x < -1 || x > 1)
+	noeud* noeudRemplace;
+	int cg = equilibre(racine->fGauche);
+	int cd = equilibre(racine->fDroit);
+	int x = cg - cd;
+	
+	if (x > 1 || x < -1)
 	{
-		if (coteGauche > coteDroit)
+		if (cg > cd)
 		{
-			actuel = racine->fGauche;
-			prede = actuel;
-
-			while (actuel->fGauche != NULL && actuel->fDroit != NULL)
-			{
-				if (actuel->fDroit != NULL)
-				{
-					actuel = actuel->fDroit;
-
-					if (actuel->fDroit != NULL)
-					{
-						prede->fDroit = NULL;
-					}
-				}
-				else {
-					actuel = actuel->fGauche;
-
-					if (actuel->fGauche != NULL )
-					{
-						prede->fGauche = NULL;
-					}
-				}
+			//rotation à droite
+			noeudRemplace = racine->fGauche;
+			racine->fGauche = noeudRemplace->fDroit;
+			noeudRemplace->fDroit = racine;
 
 
-			}
-
-
-			addTree(actuel, racine->fDroit);
-
-			coteGauche--;
-			coteDroit++;
-
-		}else {
-
-			actuel = racine->fDroit;
-			prede = actuel;
-
-			while (actuel->fGauche != NULL && actuel->fDroit != NULL)
-			{
-				if (actuel->fGauche != NULL)
-				{
-					actuel = actuel->fGauche;
-
-					if (actuel->fGauche != NULL && actuel->fDroit != NULL)
-					{
-						prede->fGauche = NULL;
-					}
-				}
-				else {
-					actuel = actuel->fDroit;
-
-					if (actuel->fGauche != NULL && actuel->fDroit != NULL)
-					{
-						prede->fDroit = NULL;
-					}
-				}
-
-
-			}
-
-			addTree(actuel, racine->fGauche);
-			coteGauche++;
-			coteDroit--;
 		}
-		x = coteGauche - coteDroit;
+		else {
 
+			//rotation à gauche
+			noeudRemplace = racine->fDroit;
+			racine->fDroit = noeudRemplace->fGauche;
+			noeudRemplace->fGauche = racine;
+
+		}
+
+		racine = noeudRemplace;
 	}
-}*/
+
+
+
+
+	
+}

@@ -4,8 +4,7 @@
 class tree
 {
 	noeud* racine;
-	int taille, coteGauche, coteDroit;
-
+	
 
 public:
 	/*tree();*/
@@ -23,9 +22,9 @@ public:
 	//supprime un noeud en fonction d'une valeur donné
 	void suppression(int x, noeud* elementActuel);
 	//verifie si l'arbre est equilibré
-	void equilibre();
-
-	//void equilibrage();
+	int equilibre(noeud* n);
+	
+	void rotation();
 
 
 

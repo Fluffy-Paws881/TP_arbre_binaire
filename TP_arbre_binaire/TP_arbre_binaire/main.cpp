@@ -59,7 +59,7 @@ int main()
 	noeud* f = new noeud;
 	f->fDroit = NULL;
 	f->fGauche = NULL;
-	f->value = 7;
+	f->value = 9;
 
 	noeud* g = new noeud;
 	g->fDroit = NULL;
@@ -74,10 +74,10 @@ int main()
 	p1.addTree(f, p1.getRacine());
 	p1.addTree(e, p1.getRacine());
 	p1.addTree(y, p1.getRacine());
-	p1.addTree(a, p1.getRacine());
+	/*p1.addTree(a, p1.getRacine());
 	p1.addTree(b, p1.getRacine());
 	p1.addTree(c, p1.getRacine());
-	p1.addTree(d, p1.getRacine());
+	p1.addTree(d, p1.getRacine());*/
 
 
 
@@ -86,12 +86,13 @@ int main()
 	//p1.suppression(8, p1.getRacine());
 	//p1.suppression(0, p1.getRacine());
 
+	//p1.recurs(p1.getRacine());
+	
+	p1.rotation();
+
+
+	
 	p1.recurs(p1.getRacine());
-	//	p1.equilibrage();
-	p1.equilibre();
-
-
-
 
 
 
